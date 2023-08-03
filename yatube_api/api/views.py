@@ -1,7 +1,7 @@
-# TODO:  Напишите свой вариант
 from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 
 from api.permissions import IsAuthorOrReadOnly
@@ -18,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    pagination_class = LimitOffsetPagination
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
     def perform_create(self, serializer):
